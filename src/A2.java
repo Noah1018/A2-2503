@@ -21,10 +21,10 @@ public class A2 {
 	private int topN = 4;
 	private int totalwordcount = 0;
 	private Scanner input = new Scanner(System.in);
-	//private SLL<Avenger> mentionList = new SLL<Avenger>();
-	//private SLL<Avenger> alphabticalList = new SLL<Avenger>();
-	//private SLL<Avenger> mostPopularList = new SLL<Avenger>(new AvengerComparatorFreqDesc());
-	//private SLL<Avenger> leastPopularList = new SLL<Avenger>(new AvengerComparatorFreqAsc());
+	private SLL<Avenger> mentionList = new SLL<Avenger>();
+	private SLL<Avenger> alphabticalList = new SLL<Avenger>();
+	private SLL<Avenger> mostPopularList = new SLL<Avenger>(new AvengerComparatorFreqDesc());
+	private SLL<Avenger> leastPopularList = new SLL<Avenger>(new AvengerComparatorFreqAsc());
 	
 	public static void main(String[] args) {
 		A2 a1 = new A2();
@@ -64,6 +64,11 @@ public class A2 {
 
 			if (word.length() > 0) {
 				// TODO:
+				if (word.length() > 0) {
+					totalwordcount++;
+					if (!isAvenger(word))
+						continue;
+				}
 			}
 		}
 	}
@@ -82,13 +87,25 @@ public class A2 {
 		return ret;
 	}
 	
+	private boolean isAvenger(String word) {
+		for (int i = 0; i < avengerRoster.length; i++) {
+			if ((avengerRoster[i][0].equals(word)) 
+					|| (avengerRoster[i][1].equals(word))) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+
+	
 
 	/**
 	 * print the results
 	 */
 	private void printResults() {
 		System.out.println("Total number of words: " + totalwordcount);
-		//System.out.println("Number of Avengers Mentioned: " + ??);
+		System.out.println("Number of Avengers Mentioned: " + mentionList.size() );
 		System.out.println();
 
 		System.out.println("All avengers in the order they appeared in the input stream:");
